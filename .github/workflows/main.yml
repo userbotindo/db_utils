@@ -1,0 +1,31 @@
+name: Database Clean UP
+
+on:
+  push:
+    branches: [ master ]
+  schedule:
+    - cron: "30 0 * * *"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 'checkout the code'
+        uses: actions/checkout@v2
+
+      - name: 'setup nodejs'
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14.x'
+
+      - name: 'Installing dependencies'
+        run: |
+          npm ci
+
+      - name: 'Running script'
+        run: |
+          npm start
+        env:
+          MONGO_URL: ${{ secrets.DB_URL }}

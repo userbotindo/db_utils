@@ -1,0 +1,22 @@
+{
+  "name": "db_utils",
+  "version": "1.0.0",
+  "description": "cleanup Bot GBAN data",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/userbotindo/db_utils.git"
+  },
+  "author": "Mr.Miss",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/userbotindo/db_utils/issues"
+  },
+  "homepage": "https://github.com/userbotindo/db_utils#readme",
+  "dependencies": {
+    "mongodb": "^3.6.6"
+  }
+}
