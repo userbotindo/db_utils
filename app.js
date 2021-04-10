@@ -27,20 +27,23 @@ MongoClient.connect(url, {useNewUrlParser: true, useUnifiedTopology: true}, (err
                 console.log(err);
             } else {
                 console.log("cleaning banned user");
+                let deleted = 0;
                 if(data.length){
                     for(let user of data){
                         for(let banned of BannedWords){
                             if((user.reason).search(banned) != -1){  // delete if match
                                 col.deleteOne({_id: user._id});
+                                deleted++;
                                 break;
                             };
                         }
                     }
-                    console.log("done");
+                    console.log(`Done deleting ${deleted} user from DB`);
                 } else {
                     console.log("No data on collection.");
                 }
             }
+            client.close();
         })
     }
 })
