@@ -70,11 +70,11 @@ function SendMessage(deleted: any[]) {
         const bot = new Telegraf(botToken);
         let text: string = `#AUTOCLEAN\nDeleting ${deleted.length} gbanned user!\n`;
         deleted.forEach((value) => {
-            let name = `\n× Name: *${value.name}* with id *${value.id}*\n`;
-            let reason = `  reason: *${value.reason}* matching *${value.matched}*\n`
+            let name = `\n× Name: <b>${value.name}</b> with id <b>${value.id}</b>\n`;
+            let reason = `   reason: <b>${value.reason}</b> (matching <b>${value.matched}</b>)\n`
             text = text.concat(name, reason);
         })
-        bot.telegram.sendMessage(ChatId, text, { parse_mode: "Markdown" });
+        bot.telegram.sendMessage(ChatId, text, { parse_mode: "HTML" });
     }
 }
 
