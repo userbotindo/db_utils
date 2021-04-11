@@ -2,9 +2,9 @@
   "name": "db_utils",
   "version": "1.0.0",
   "description": "cleanup Bot GBAN data",
-  "main": "app.js",
+  "main": "app.ts",
   "scripts": {
-    "start": "node app"
+    "start": "ts-node app.ts"
   },
   "repository": {
     "type": "git",
@@ -17,6 +17,11 @@
   },
   "homepage": "https://github.com/userbotindo/db_utils#readme",
   "dependencies": {
-    "mongodb": "^3.6.6"
+    "@types/mongodb": "^3.6.12",
+    "@types/node": "^14.14.37",
+    "mongodb": "^3.6.6",
+    "telegraf": "^4.3.0",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.4"
   }
 }
