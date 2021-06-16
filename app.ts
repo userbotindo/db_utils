@@ -15,21 +15,22 @@ let bannedWord: string[] = fileBuffer.replace(/\r\n/g, '\n').split('\n');
 let listUser: any[] = []
 
 
-function main() {
+async function main(): Promise<void> {
     console.log("Connecting to MongoDB");
-    MongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true })
-        .then(async (client) => {
-            console.log("connected");
-            CleanDB(client);
-        })
-        .catch(err => {
-            console.log(err);
-            process.exit(1);
-        })
+    try{
+        const client = await MongoClient.connect(url, {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        });
+        CleanDB(client);
+    } catch (err) {
+        console.error("Failed to connect to db ", err);
+        process.exit(1);
+    }
 }
 
 
-function CleanDB(client: MongoClient) {
+function CleanDB(client: MongoClient): void {
     const col: Collection = client.db("UbotIndo").collection("GBANS");
     col.find({}).toArray((err, data) => {
         if (err) throw err;
@@ -54,7 +55,7 @@ function CleanDB(client: MongoClient) {
 }
 
 
-function AppendUser(user: any, match: string, callback: (result: any) => void) {
+function AppendUser(user: any, match: string, callback: (result: any) => void): void {
     let data = {
         id: user._id.toString(),
         name: user.name,
@@ -65,7 +66,7 @@ function AppendUser(user: any, match: string, callback: (result: any) => void) {
 }
 
 
-function SendMessage(deleted: any[]) {
+function SendMessage(deleted: any[]): void {
     if (deleted.length && botToken && ChatId) {
         const bot = new Telegraf(botToken);
         let text: string = `#AUTOCLEAN\nDeleting ${deleted.length} gbanned user!\n`;
